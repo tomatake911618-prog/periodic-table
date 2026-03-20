@@ -288,7 +288,7 @@ function filterElements(type) {
 }
 
 
-function startTypingQuiz() {
+function quiz() {
   document.querySelectorAll(".element").forEach(card=>{
     card.classList.remove("highlight");
   });
@@ -308,27 +308,26 @@ function startTypingQuiz() {
   document.getElementById("result").textContent = "";
 }
 
-function checkTypingAnswer() {
+function check() {
   if (!typingTarget) return;
 
   const user = toHiragana(
     document.getElementById("Answer").value.trim()
   );
 
-  const correctKana = typingTarget.kana;
+  const correctHira = typingTarget.hira;
   const correctName = typingTarget.name;
 
-  if (user === correctKana || user === toHiragana(correctName)) {
-    document.getElementById("Result").textContent = "正解";
+  if (user === correctHira || user === toHiragana(correctName)) {
+    document.getElementById("result").textContent = "正解";
   } else {
-    document.getElementById("Result").textContent =
-      `不正解… 正しくは ${correctName}`;
+    document.getElementById("result").textContent =`不正解… 正しくは ${correctName}`;
   }
 }
 
 document.getElementById("Answer").addEventListener("keydown", e=>{
   if (e.key === "Enter") {
-    checkTypingAnswer();
+    Answer();
   }
 });
 
