@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>周期表</title>
-
+<audio id="correctSound" src="正解音1.mp3"></audio>
 <style>
 body {
   font-family: sans-serif;
@@ -288,7 +288,7 @@ function filterElements(type) {
 }
 
 let typingTarget=null;
-  
+//クイズ
 function quiz() {
   document.querySelectorAll(".element").forEach(card=>{
     card.classList.remove("highlight");
@@ -321,6 +321,7 @@ function check() {
 
   if (user === correctHira || user === toHiragana(correctName)) {
     document.getElementById("result").textContent = "正解";
+    document.getElementById("正解音１.mp3").play();
   } else {
     document.getElementById("result").textContent =`不正解… 正しくは ${correctName}`;
   }
