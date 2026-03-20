@@ -12,10 +12,7 @@ body {
   color: white;
 }
 
-/* ボタン */
-.buttons {
-  margin: 10px;
-}
+.buttons { margin: 10px; }
 
 button {
   margin: 3px;
@@ -25,7 +22,6 @@ button {
   cursor: pointer;
 }
 
-/* グリッド */
 .table {
   display: grid;
   grid-template-columns: repeat(18, 70px);
@@ -34,7 +30,6 @@ button {
   overflow-x: auto;
 }
 
-/* 元素 */
 .element {
   background: white;
   color: black;
@@ -44,54 +39,32 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: 0.3s;
   aspect-ratio: 1 / 1;
-  width: 60px;
-  height: 60px;
 }
 
-.symbol {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.name {
-  font-size: 13px;
-}
+.symbol { font-size: 20px; font-weight: bold; }
+.name { font-size: 13px; }
 
 .flipped {
   background: white !important;
   color: transparent;
 }
 
-.correct {
-  background: lime;
-}
+.correct { background: lime; }
+.wrong { background: red; }
 
-.wrong {
-  background: red;
-}
-  
-/* 色付け */
-.active.alkali { background: #e80909; color: black; }
-.active.alkaline { background: #ffcc66; color: black; }
-.active.transition { background: #66b3ff; color: black; }
-.active.metal { background: #66ff99; color: black; }
-.active.nonmetal { background: #ccff66; color: black; }
-.active.semiconductor { background: #e80909; color:black; }
-.active.halogen { background: #ffff66; color: black; }
-.active.noble { background: #cc99ff; color: black; }
-.active.radioactive {background: #000; color: black; }
-.active.acti {background: #666666; color: black; }
+.active.alkali { background: #e80909; }
+.active.alkaline { background: #ffcc66; }
+.active.transition { background: #66b3ff; }
+.active.metal { background: #66ff99; }
+.active.nonmetal { background: #ccff66; }
+.active.semiconductor { background: #e80909; }
+.active.halogen { background: #ffff66; }
+.active.noble { background: #cc99ff; }
 
-/* スマホ */
 @media (max-width:600px) {
-  .table {
-    grid-template-columns: repeat(18, 50px);
-  }
-  .name {
-    display: none;
-  }
+  .table { grid-template-columns: repeat(18, 50px); }
+  .name { display: none; }
 }
 </style>
 </head>
@@ -105,154 +78,25 @@ button {
   <button onclick="filterElements('alkali')">アルカリ金属</button>
   <button onclick="filterElements('alkaline')">アルカリ土類金属</button>
   <button onclick="filterElements('transition')">遷移金属</button>
-  <button onclick="filterElements('metal')">金属</button>
   <button onclick="filterElements('nonmetal')">非金属</button>
-  <button onclick="filterElements('semiconductor')">半導体,半金属</button>
-  <button onclick="filterElements('halogen')">ハロゲン</button>
-  <button onclick="filterElements('noble')">希ガス</button>
-  <button onclick="filterElements('radioactive')">放射性同位体</button>
 </div>
+
+<button onclick="quiz()">クイズ開始</button>
+<p id="flipResult"></p>
 
 <div class="table" id="table"></div>
 
 <script>
+let flipMode = false;
+let flipTarget = null;
+
 const elements = [
 {n:1,s:"H",name:"水素",row:1,col:1,type:["nonmetal"]},
 {n:2,s:"He",name:"ヘリウム",row:1,col:18,type:["noble","nonmetal"]},
-
 {n:3,s:"Li",name:"リチウム",row:2,col:1,type:["alkali","metal"]},
-{n:4,s:"Be",name:"ベリリウム",row:2,col:2,type:["alkaline","metal"]},
-{n:5,s:"B",name:"ホウ素",row:2,col:13,type:["metalloid","nonmetal","semiconductor"]},
-{n:6,s:"C",name:"炭素",row:2,col:14,type:["nonmetal","semiconductor"]},
-{n:7,s:"N",name:"窒素",row:2,col:15,type:["nonmetal"]},
-{n:8,s:"O",name:"酸素",row:2,col:16,type:["nonmetal"]},
-{n:9,s:"F",name:"フッ素",row:2,col:17,type:["halogen","nonmetal"]},
-{n:10,s:"Ne",name:"ネオン",row:2,col:18,type:["noble","nonmetal"]},
-
-{n:11,s:"Na",name:"ナトリウム",row:3,col:1,type:["alkali","metal"]},
-{n:12,s:"Mg",name:"マグネシウム",row:3,col:2,type:["alkaline","metal"]},
-{n:13,s:"Al",name:"アルミニウム",row:3,col:13,type:["post","metal"]},
-{n:14,s:"Si",name:"ケイ素",row:3,col:14,type:["nonmetal","semiconductor"]},
-{n:15,s:"P",name:"リン",row:3,col:15,type:["nonmetal","semiconductor"]},
-{n:16,s:"S",name:"硫黄",row:3,col:16,type:["nonmetal"]},
-{n:17,s:"Cl",name:"塩素",row:3,col:17,type:["halogen","nonmetal"]},
-{n:18,s:"Ar",name:"アルゴン",row:3,col:18,type:["noble","nonmetal"]},
-
-{n:19,s:"K",name:"カリウム",row:4,col:1,type:["alkali","metal"]},
-{n:20,s:"Ca",name:"カルシウム",row:4,col:2,type:["alkaline","metal"]},
-{n:21,s:"Sc",name:"スカンジウム",row:4,col:3,type:["transition","metal"]},
-{n:22,s:"Ti",name:"チタン",row:4,col:4,type:["transition","metal"]},
-{n:23,s:"V",name:"バナジウム",row:4,col:5,type:["transition","metal"]},
-{n:24,s:"Cr",name:"クロム",row:4,col:6,type:["transition","metal"]},
-{n:25,s:"Mn",name:"マンガン",row:4,col:7,type:["transition","metal"]},
-{n:26,s:"Fe",name:"鉄",row:4,col:8,type:["transition","metal"]},
-{n:27,s:"Co",name:"コバルト",row:4,col:9,type:["transition","metal"]},
-{n:28,s:"Ni",name:"ニッケル",row:4,col:10,type:["transition","metal"]},
-{n:29,s:"Cu",name:"銅",row:4,col:11,type:["transition","metal"]},
-{n:30,s:"Zn",name:"亜鉛",row:4,col:12,type:["transition","metal"]},
-{n:31,s:"Ga",name:"ガリウム",row:4,col:13,type:["post","metal"]},
-{n:32,s:"Ge",name:"ゲルマニウム",row:4,col:14,type:["metalloid","semiconductor"]},
-{n:33,s:"As",name:"ヒ素",row:4,col:15,type:["nonmetal","semiconductor"]},
-{n:34,s:"Se",name:"セレン",row:4,col:16,type:["nonmetal","semiconductor"]},
-{n:35,s:"Br",name:"臭素",row:4,col:17,type:["halogen","nonmetal"]},
-{n:36,s:"Kr",name:"クリプトン",row:4,col:18,type:["noble","nonmetal"]},
-
-{n:37,s:"Rb",name:"ルビジウム",row:5,col:1,type:["alkali","metal"]},
-{n:38,s:"Sr",name:"ストロンチウム",row:5,col:2,type:["alkaline","metal"]},
-{n:39,s:"Y",name:"イットリウム",row:5,col:3,type:["transition","metal"]},
-{n:40,s:"Zr",name:"ジルコニウム",row:5,col:4,type:["transition","metal"]},
-{n:41,s:"Nb",name:"ニオブ",row:5,col:5,type:["transition","metal"]},
-{n:42,s:"Mo",name:"モリブデン",row:5,col:6,type:["transition","metal"]},
-{n:43,s:"Tc",name:"テクネチウム",row:5,col:7,type:["transition","metal"]},
-{n:44,s:"Ru",name:"ルテニウム",row:5,col:8,type:["transition","metal"]},
-{n:45,s:"Rh",name:"ロジウム",row:5,col:9,type:["transition","metal"]},
-{n:46,s:"Pd",name:"パラジウム",row:5,col:10,type:["transition","metal"]},
-{n:47,s:"Ag",name:"銀",row:5,col:11,type:["transition","metal"]},
-{n:48,s:"Cd",name:"カドミウム",row:5,col:12,type:["transition","metal"]},
-{n:49,s:"In",name:"インジウム",row:5,col:13,type:["post","metal"]},
-{n:50,s:"Sn",name:"スズ",row:5,col:14,type:["post","metal"]},
-{n:51,s:"Sb",name:"アンチモン",row:5,col:15,type:["metal","semiconductor"]},
-{n:52,s:"Te",name:"テルル",row:5,col:16,type:["nonmetal","semiconductor"]},
-{n:53,s:"I",name:"ヨウ素",row:5,col:17,type:["halogen","nonmetal"]},
-{n:54,s:"Xe",name:"キセノン",row:5,col:18,type:["noble","nonmetal"]},
-
-{n:55,s:"Cs",name:"セシウム",row:6,col:1,type:["alkali","metal"]},
-{n:56,s:"Ba",name:"バリウム",row:6,col:2,type:["alkaline","metal"]},
-{n:"57–71",s:"La*",name:"ランタノイド",row:6,col:3,type:["transition","metal"]},
-{n:72,s:"Hf",name:"ハフニウム",row:6,col:4,type:["transition","metal"]},
-{n:73,s:"Ta",name:"タンタル",row:6,col:5,type:["transition","metal"]},
-{n:74,s:"W",name:"タングステン",row:6,col:6,type:["transition","metal"]},
-{n:75,s:"Re",name:"レニウム",row:6,col:7,type:["transition","metal"]},
-{n:76,s:"Os",name:"オスミウム",row:6,col:8,type:["transition","metal"]},
-{n:77,s:"Ir",name:"イリジウム",row:6,col:9,type:["transition","metal"]},
-{n:78,s:"Pt",name:"白金",row:6,col:10,type:["transition","metal"]},
-{n:79,s:"Au",name:"金",row:6,col:11,type:["transition","metal"]},
-{n:80,s:"Hg",name:"水銀",row:6,col:12,type:["transition","metal"]},
-{n:81,s:"Tl",name:"タリウム",row:6,col:13,type:["post","metal"]},
-{n:82,s:"Pb",name:"鉛",row:6,col:14,type:["post","metal"]},
-{n:83,s:"Bi",name:"ビスマス",row:6,col:15,type:["metal","semiconductor"]},
-{n:84,s:"Po",name:"ポロニウム",row:6,col:16,type:["metal","semiconductor"]},
-{n:85,s:"At",name:"アスタチン",row:6,col:17,type:["halogen","nonmetal","semiconductor"]},
-{n:86,s:"Rn",name:"ラドン",row:6,col:18,type:["noble","nonmetal"]},
-
-
-{n:87,s:"Fr",name:"フランシウム",row:7,col:1,type:["alkali","metal"]},
-{n:88,s:"Ra",name:"ラジウム",row:7,col:2,type:["alkaline","metal"]},
-{n:"89–71",s:"Ac*",name:"アクチニウム",row:7,col:3,type:["transition","metal"]},
-{n:104,s:"Rf",name:"ラザホージウム",row:7,col:4,type:["acti"]},
-{n:105,s:"Db",name:"ドブニウム",row:7,col:5,type:["acti"]},
-{n:106,s:"Sg",name:"シーボーギウム",row:7,col:6,type:["acti"]},
-{n:107,s:"Bh",name:"ボーリウム",row:7,col:7,type:["acti"]},
-{n:108,s:"Hs",name:"ハッシウム",row:7,col:8,type:["acti"]},
-{n:109,s:"Mt",name:"マイトネリウム",row:7,col:9,type:["acti"]},
-{n:110,s:"Ds",name:"ダームスタチウム",row:7,col:10,type:["acti"]},
-{n:111,s:"Rg",name:"レントゲニウム",row:7,col:11,type:["acti"]},
-{n:112,s:"Cn",name:"コペルニシウム",row:7,col:12,type:["acti"]},
-{n:113,s:"Nh",name:"ニホニウム",row:7,col:13,type:["acti"]},
-{n:114,s:"Fl",name:"フレロビウム",row:7,col:14,type:["acti"]},
-{n:115,s:"Mc",name:"モスコビウム",row:7,col:15,type:["acti"]},
-{n:116,s:"Lv",name:"リバモリウム",row:7,col:16,type:["acti"]},
-{n:117,s:"Ts",name:"テネシン",row:7,col:17,type:["acti"]},
-{n:118,s:"Og",name:"オネガソン",row:7,col:18,type:["acti"]},
-
-
-/* ランタノイド */
-{n:57,s:"La",name:"ランタン",row:8,col:3,type:["lanthanoid","metal","transition"]},
-{n:58,s:"Ce",name:"セリウム",row:8,col:4,type:["lanthanoid","metal","transition"]},
-{n:59,s:"Pr",name:"プラセオジム",row:8,col:5,type:["lanthanoid","metal","transition"]},
-{n:60,s:"Nd",name:"ネオジム",row:8,col:6,type:["lanthanoid","metal","transition"]},
-{n:61,s:"Pm",name:"プロメチウム",row:8,col:7,type:["lanthanoid","metal","transition"]},
-{n:62,s:"Sm",name:"サマリウム",row:8,col:8,type:["lanthanoid","metal","transition"]},
-{n:63,s:"Eu",name:"ユウロピウム",row:8,col:9,type:["lanthanoid","metal","transition"]},
-{n:64,s:"Gd",name:"ガドリニウム",row:8,col:10,type:["lanthanoid","metal","transition"]},
-{n:65,s:"Tb",name:"テルビウム",row:8,col:11,type:["lanthanoid","metal","transition"]},
-{n:66,s:"Dy",name:"ジスプロシウム",row:8,col:12,type:["lanthanoid","metal","transition"]},
-{n:67,s:"Ho",name:"ホルミウム",row:8,col:13,type:["lanthanoid","metal","transition"]},
-{n:68,s:"Er",name:"エルビウム",row:8,col:14,type:["lanthanoid","metal","transition"]},
-{n:69,s:"Tm",name:"ツリウム",row:8,col:15,type:["lanthanoid","metal","transition"]},
-{n:70,s:"Yb",name:"イッテルビウム",row:8,col:16,type:["lanthanoid","metal","transition"]},
-{n:71,s:"Lu",name:"ルテチウム",row:8,col:17,type:["lanthanoid","metal","transition"]},
-
-/* アクチノイド */
-{n:89,s:"Ac",name:"アクチニウム",row:9,col:3,type:["actinoid","metal","transition"]},
-{n:90,s:"Th",name:"トリウム",row:9,col:4,type:["actinoid","metal","transition"]},
-{n:91,s:"Pa",name:"プロトアクチニウム",row:9,col:5,type:["actinoid","metal","transition"]},
-{n:92,s:"U",name:"ウラン",row:9,col:6,type:["actinoid","metal","transition"]},
-{n:93,s:"Np",name:"ネプツニウム",row:9,col:7,type:["actinoid","metal","transition"]},
-{n:94,s:"Pu",name:"プルトニウム",row:9,col:8,type:["actinoid","metal","transition"]},
-{n:95,s:"Am",name:"アメリシウム",row:9,col:9,type:["actinoid","metal","transition"]},
-{n:96,s:"Cm",name:"キュリウム",row:9,col:10,type:["actinoid","metal","transition"]},
-{n:97,s:"Bk",name:"バークリウム",row:9,col:11,type:["actinoid","metal","transition"]},
-{n:98,s:"Cf",name:"カリホルニウム",row:9,col:12,type:["actinoid","metal","transition"]},
-{n:99,s:"Es",name:"アインスタイニウム",row:9,col:13,type:["actinoid","metal","transition"]},
-{n:100,s:"Fm",name:"フェルミウム",row:9,col:14,type:["actinoid","metal","transition"]},
-{n:101,s:"Md",name:"メンデレビウム",row:9,col:15,type:["actinoid","metal","transition"]},
-{n:102,s:"No",name:"ノーベリウム",row:9,col:16,type:["actinoid","metal","transition"]},
-{n:103,s:"Lr",name:"ローレンシウム",row:9,col:17,type:["actinoid","metal","transition"]},
-
+{n:4,s:"Be",name:"ベリリウム",row:2,col:2,type:["alkaline","metal"]}
 ];
 
-<button onclick="quiz()">クイズ</button>
 // 描画
 const table = document.getElementById("table");
 
@@ -268,58 +112,53 @@ elements.forEach(el => {
     <div class="name">${el.name}</div>
   `;
 
+  // クリック処理
+  div.addEventListener("click", () => {
+    if (!flipMode) return;
+
+    div.classList.remove("flipped");
+
+    if (el.n === flipTarget.n) {
+      div.classList.add("correct");
+      document.getElementById("flipResult").textContent =
+        `正解！ ${el.name}`;
+    } else {
+      div.classList.add("wrong");
+      document.getElementById("flipResult").textContent =
+        `不正解… 正解は ${flipTarget.name}`;
+    }
+
+    flipMode = false;
+  });
+
   table.appendChild(div);
 });
 
 // フィルター
 function filterElements(type) {
-  const all = document.querySelectorAll(".element");
-
-  all.forEach(el => {
+  document.querySelectorAll(".element").forEach(el => {
     el.classList.remove("active");
 
-    if (type === "all") {
-      el.classList.add("active");
-    } else if (el.classList.contains(type)) {
+    if (type === "all" || el.classList.contains(type)) {
       el.classList.add("active");
     }
   });
 }
 
-div.dateset.num=e1.n;
-
-
+// クイズ
 function quiz() {
-  document.querySelectorAll(".element").forEach(card=>{
+  document.querySelectorAll(".element").forEach(card => {
     card.classList.remove("correct","wrong");
     card.classList.add("flipped");
   });
 
   flipTarget = elements[Math.floor(Math.random() * elements.length)];
   flipMode = true;
+
+  document.getElementById("flipResult").textContent =
+    `この元素はどれ？（${flipTarget.name}）`;
 }
-
-div.addEventListener("click",() => {
-  if (!flipMode) return;
-
-  div.classList.remove("flipped");
-  if (el.n === flipTarget.n) {
-    div.classList.add("correct");
-    document.getElementById("flipResult").textContent =
-      `正解！ ${el.name}`;
-  } else {
-    div.classList.add("wrong");
-    document.getElementById("flipResult").textContent =
-      `不正解… 正解は ${flipTarget.name}`;
-  }
-
-  flipMode=false;
-});
-
-  
 </script>
 
-.
-<div class="quiz">
 </body>
 </html>
