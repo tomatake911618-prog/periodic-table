@@ -59,18 +59,15 @@ button {
   font-size: 13px;
 }
 
-.flipped {
+.hide {
   background: white !important;
   color: transparent;
 }
 
-.correct {
-  background: lime;
+.highlight {
+  border:4px solid yellow;
 }
-
-.wrong {
-  background: red;
-}
+  
   
 /* 色付け */
 .active.alkali { background: #e80909; color: black; }
@@ -120,138 +117,138 @@ let flipMode = false;
 let flipTarget = null;
 
 const elements = [
-{n:1,s:"H",name:"水素",row:1,col:1,type:["nonmetal"]},
-{n:2,s:"He",name:"ヘリウム",row:1,col:18,type:["noble","nonmetal"]},
+{n:1,s:"H",name:"水素",hira:"すいそ",row:1,col:1,type:["nonmetal"]},
+{n:2,s:"He",name:"ヘリウム",hira:"へりうむ",row:1,col:18,type:["noble","nonmetal"]},
 
-{n:3,s:"Li",name:"リチウム",row:2,col:1,type:["alkali","metal"]},
-{n:4,s:"Be",name:"ベリリウム",row:2,col:2,type:["alkaline","metal"]},
-{n:5,s:"B",name:"ホウ素",row:2,col:13,type:["metalloid","nonmetal","semiconductor"]},
-{n:6,s:"C",name:"炭素",row:2,col:14,type:["nonmetal","semiconductor"]},
-{n:7,s:"N",name:"窒素",row:2,col:15,type:["nonmetal"]},
-{n:8,s:"O",name:"酸素",row:2,col:16,type:["nonmetal"]},
-{n:9,s:"F",name:"フッ素",row:2,col:17,type:["halogen","nonmetal"]},
-{n:10,s:"Ne",name:"ネオン",row:2,col:18,type:["noble","nonmetal"]},
+{n:3,s:"Li",name:"リチウム",hira:"りちうむ",row:2,col:1,type:["alkali","metal"]},
+{n:4,s:"Be",name:"ベリリウム",hira:"べりりうむ",row:2,col:2,type:["alkaline","metal"]},
+{n:5,s:"B",name:"ホウ素",hira:"ほうそ",row:2,col:13,type:["metalloid","nonmetal","semiconductor"]},
+{n:6,s:"C",name:"炭素",hira:"たんそ",row:2,col:14,type:["nonmetal","semiconductor"]},
+{n:7,s:"N",name:"窒素",hira:"ちっそ",row:2,col:15,type:["nonmetal"]},
+{n:8,s:"O",name:"酸素",hira:"さんそ",row:2,col:16,type:["nonmetal"]},
+{n:9,s:"F",name:"フッ素",hira:"ふっそ",row:2,col:17,type:["halogen","nonmetal"]},
+{n:10,s:"Ne",name:"ネオン",hira:"ねおん",row:2,col:18,type:["noble","nonmetal"]},
 
-{n:11,s:"Na",name:"ナトリウム",row:3,col:1,type:["alkali","metal"]},
-{n:12,s:"Mg",name:"マグネシウム",row:3,col:2,type:["alkaline","metal"]},
-{n:13,s:"Al",name:"アルミニウム",row:3,col:13,type:["post","metal"]},
-{n:14,s:"Si",name:"ケイ素",row:3,col:14,type:["nonmetal","semiconductor"]},
-{n:15,s:"P",name:"リン",row:3,col:15,type:["nonmetal","semiconductor"]},
-{n:16,s:"S",name:"硫黄",row:3,col:16,type:["nonmetal"]},
-{n:17,s:"Cl",name:"塩素",row:3,col:17,type:["halogen","nonmetal"]},
-{n:18,s:"Ar",name:"アルゴン",row:3,col:18,type:["noble","nonmetal"]},
+{n:11,s:"Na",name:"ナトリウム",hira:"なとりうむ",row:3,col:1,type:["alkali","metal"]},
+{n:12,s:"Mg",name:"マグネシウム",hira:"まぐねしうむ",row:3,col:2,type:["alkaline","metal"]},
+{n:13,s:"Al",name:"アルミニウム",hira:"あるみにうむ",row:3,col:13,type:["post","metal"]},
+{n:14,s:"Si",name:"ケイ素",hira:"けいそ",row:3,col:14,type:["nonmetal","semiconductor"]},
+{n:15,s:"P",name:"リン",hira:"りん",row:3,col:15,type:["nonmetal","semiconductor"]},
+{n:16,s:"S",name:"硫黄",hira:"いおう",row:3,col:16,type:["nonmetal"]},
+{n:17,s:"Cl",name:"塩素",hira:"えんそ",row:3,col:17,type:["halogen","nonmetal"]},
+{n:18,s:"Ar",name:"アルゴン",hira:"あるごん",row:3,col:18,type:["noble","nonmetal"]},
 
-{n:19,s:"K",name:"カリウム",row:4,col:1,type:["alkali","metal"]},
-{n:20,s:"Ca",name:"カルシウム",row:4,col:2,type:["alkaline","metal"]},
-{n:21,s:"Sc",name:"スカンジウム",row:4,col:3,type:["transition","metal"]},
-{n:22,s:"Ti",name:"チタン",row:4,col:4,type:["transition","metal"]},
-{n:23,s:"V",name:"バナジウム",row:4,col:5,type:["transition","metal"]},
-{n:24,s:"Cr",name:"クロム",row:4,col:6,type:["transition","metal"]},
-{n:25,s:"Mn",name:"マンガン",row:4,col:7,type:["transition","metal"]},
-{n:26,s:"Fe",name:"鉄",row:4,col:8,type:["transition","metal"]},
-{n:27,s:"Co",name:"コバルト",row:4,col:9,type:["transition","metal"]},
-{n:28,s:"Ni",name:"ニッケル",row:4,col:10,type:["transition","metal"]},
-{n:29,s:"Cu",name:"銅",row:4,col:11,type:["transition","metal"]},
-{n:30,s:"Zn",name:"亜鉛",row:4,col:12,type:["transition","metal"]},
-{n:31,s:"Ga",name:"ガリウム",row:4,col:13,type:["post","metal"]},
-{n:32,s:"Ge",name:"ゲルマニウム",row:4,col:14,type:["metalloid","semiconductor"]},
-{n:33,s:"As",name:"ヒ素",row:4,col:15,type:["nonmetal","semiconductor"]},
-{n:34,s:"Se",name:"セレン",row:4,col:16,type:["nonmetal","semiconductor"]},
-{n:35,s:"Br",name:"臭素",row:4,col:17,type:["halogen","nonmetal"]},
-{n:36,s:"Kr",name:"クリプトン",row:4,col:18,type:["noble","nonmetal"]},
+{n:19,s:"K",name:"カリウム",hira:"かりうむ",row:4,col:1,type:["alkali","metal"]},
+{n:20,s:"Ca",name:"カルシウム",hira:"かるしうむ",row:4,col:2,type:["alkaline","metal"]},
+{n:21,s:"Sc",name:"スカンジウム",hira:"すかんじうむ",row:4,col:3,type:["transition","metal"]},
+{n:22,s:"Ti",name:"チタン",hira:"ちたん",row:4,col:4,type:["transition","metal"]},
+{n:23,s:"V",name:"バナジウム",hira:"ばなじうむ",row:4,col:5,type:["transition","metal"]},
+{n:24,s:"Cr",name:"クロム",hira:"くろむ",row:4,col:6,type:["transition","metal"]},
+{n:25,s:"Mn",name:"マンガン",hira:"まんがん",row:4,col:7,type:["transition","metal"]},
+{n:26,s:"Fe",name:"鉄",row:4,hira:"てつ",col:8,type:["transition","metal"]},
+{n:27,s:"Co",name:"コバルト",hira:"こばると",row:4,col:9,type:["transition","metal"]},
+{n:28,s:"Ni",name:"ニッケル",hira:"にっける",row:4,col:10,type:["transition","metal"]},
+{n:29,s:"Cu",name:"銅",hira:"どう",row:4,col:11,type:["transition","metal"]},
+{n:30,s:"Zn",name:"亜鉛",hira:"あえん",row:4,col:12,type:["transition","metal"]},
+{n:31,s:"Ga",name:"ガリウム",hira:"がりうむ",row:4,col:13,type:["post","metal"]},
+{n:32,s:"Ge",name:"ゲルマニウム",hira:"げるまにうむ",row:4,col:14,type:["metalloid","semiconductor"]},
+{n:33,s:"As",name:"ヒ素",hira:"ひそ",row:4,col:15,type:["nonmetal","semiconductor"]},
+{n:34,s:"Se",name:"セレン",hira:"せれん",row:4,col:16,type:["nonmetal","semiconductor"]},
+{n:35,s:"Br",name:"臭素",hira:"しゅうそ",row:4,col:17,type:["halogen","nonmetal"]},
+{n:36,s:"Kr",name:"クリプトン",hira:"くりぷとん",row:4,col:18,type:["noble","nonmetal"]},
 
-{n:37,s:"Rb",name:"ルビジウム",row:5,col:1,type:["alkali","metal"]},
-{n:38,s:"Sr",name:"ストロンチウム",row:5,col:2,type:["alkaline","metal"]},
-{n:39,s:"Y",name:"イットリウム",row:5,col:3,type:["transition","metal"]},
-{n:40,s:"Zr",name:"ジルコニウム",row:5,col:4,type:["transition","metal"]},
-{n:41,s:"Nb",name:"ニオブ",row:5,col:5,type:["transition","metal"]},
-{n:42,s:"Mo",name:"モリブデン",row:5,col:6,type:["transition","metal"]},
-{n:43,s:"Tc",name:"テクネチウム",row:5,col:7,type:["transition","metal"]},
-{n:44,s:"Ru",name:"ルテニウム",row:5,col:8,type:["transition","metal"]},
-{n:45,s:"Rh",name:"ロジウム",row:5,col:9,type:["transition","metal"]},
-{n:46,s:"Pd",name:"パラジウム",row:5,col:10,type:["transition","metal"]},
-{n:47,s:"Ag",name:"銀",row:5,col:11,type:["transition","metal"]},
-{n:48,s:"Cd",name:"カドミウム",row:5,col:12,type:["transition","metal"]},
-{n:49,s:"In",name:"インジウム",row:5,col:13,type:["post","metal"]},
-{n:50,s:"Sn",name:"スズ",row:5,col:14,type:["post","metal"]},
-{n:51,s:"Sb",name:"アンチモン",row:5,col:15,type:["metal","semiconductor"]},
-{n:52,s:"Te",name:"テルル",row:5,col:16,type:["nonmetal","semiconductor"]},
-{n:53,s:"I",name:"ヨウ素",row:5,col:17,type:["halogen","nonmetal"]},
-{n:54,s:"Xe",name:"キセノン",row:5,col:18,type:["noble","nonmetal"]},
+{n:37,s:"Rb",name:"ルビジウム",hira:"るびじうむ",row:5,col:1,type:["alkali","metal"]},
+{n:38,s:"Sr",name:"ストロンチウム",hira:"すとろんちうむ",row:5,col:2,type:["alkaline","metal"]},
+{n:39,s:"Y",name:"イットリウム",hira:"いっとりうむ",row:5,col:3,type:["transition","metal"]},
+{n:40,s:"Zr",name:"ジルコニウム",hira:"じるこにうむ",row:5,col:4,type:["transition","metal"]},
+{n:41,s:"Nb",name:"ニオブ",hira:"におぶ",row:5,col:5,type:["transition","metal"]},
+{n:42,s:"Mo",name:"モリブデン",hira:"もりぶでん",row:5,col:6,type:["transition","metal"]},
+{n:43,s:"Tc",name:"テクネチウム",hira:"てくねちうむ",row:5,col:7,type:["transition","metal"]},
+{n:44,s:"Ru",name:"ルテニウム",hira:"るてにうむ",row:5,col:8,type:["transition","metal"]},
+{n:45,s:"Rh",name:"ロジウム",hira:"ろじうむ",row:5,col:9,type:["transition","metal"]},
+{n:46,s:"Pd",name:"パラジウム",hira:"ぱらじうむ",row:5,col:10,type:["transition","metal"]},
+{n:47,s:"Ag",name:"銀",hira:"ぎん",row:5,col:11,type:["transition","metal"]},
+{n:48,s:"Cd",name:"カドミウム",hira:"かどみうむ",row:5,col:12,type:["transition","metal"]},
+{n:49,s:"In",name:"インジウム",hira:"いんじうむ",row:5,col:13,type:["post","metal"]},
+{n:50,s:"Sn",name:"スズ",hira:"すず",row:5,col:14,type:["post","metal"]},
+{n:51,s:"Sb",name:"アンチモン",hira:"あんちもん",row:5,col:15,type:["metal","semiconductor"]},
+{n:52,s:"Te",name:"テルル",hira:"てるる",row:5,col:16,type:["nonmetal","semiconductor"]},
+{n:53,s:"I",name:"ヨウ素",hira:"ようそ",row:5,col:17,type:["halogen","nonmetal"]},
+{n:54,s:"Xe",name:"キセノン",hira:"きせのん",row:5,col:18,type:["noble","nonmetal"]},
 
-{n:55,s:"Cs",name:"セシウム",row:6,col:1,type:["alkali","metal"]},
-{n:56,s:"Ba",name:"バリウム",row:6,col:2,type:["alkaline","metal"]},
+{n:55,s:"Cs",name:"セシウム",hira:"せしうむ",row:6,col:1,type:["alkali","metal"]},
+{n:56,s:"Ba",name:"バリウム",hira:"ばりうむ",row:6,col:2,type:["alkaline","metal"]},
 {n:"57–71",s:"La*",name:"ランタノイド",row:6,col:3,type:["transition","metal"]},
-{n:72,s:"Hf",name:"ハフニウム",row:6,col:4,type:["transition","metal"]},
-{n:73,s:"Ta",name:"タンタル",row:6,col:5,type:["transition","metal"]},
-{n:74,s:"W",name:"タングステン",row:6,col:6,type:["transition","metal"]},
-{n:75,s:"Re",name:"レニウム",row:6,col:7,type:["transition","metal"]},
-{n:76,s:"Os",name:"オスミウム",row:6,col:8,type:["transition","metal"]},
-{n:77,s:"Ir",name:"イリジウム",row:6,col:9,type:["transition","metal"]},
-{n:78,s:"Pt",name:"白金",row:6,col:10,type:["transition","metal"]},
-{n:79,s:"Au",name:"金",row:6,col:11,type:["transition","metal"]},
-{n:80,s:"Hg",name:"水銀",row:6,col:12,type:["transition","metal"]},
-{n:81,s:"Tl",name:"タリウム",row:6,col:13,type:["post","metal"]},
-{n:82,s:"Pb",name:"鉛",row:6,col:14,type:["post","metal"]},
-{n:83,s:"Bi",name:"ビスマス",row:6,col:15,type:["metal","semiconductor"]},
-{n:84,s:"Po",name:"ポロニウム",row:6,col:16,type:["metal","semiconductor"]},
-{n:85,s:"At",name:"アスタチン",row:6,col:17,type:["halogen","nonmetal","semiconductor"]},
-{n:86,s:"Rn",name:"ラドン",row:6,col:18,type:["noble","nonmetal"]},
+{n:72,s:"Hf",name:"ハフニウム",hira:"はふにうむ",row:6,col:4,type:["transition","metal"]},
+{n:73,s:"Ta",name:"タンタル",hira:"たんたる",row:6,col:5,type:["transition","metal"]},
+{n:74,s:"W",name:"タングステン",hira:"たんぐすてん",row:6,col:6,type:["transition","metal"]},
+{n:75,s:"Re",name:"レニウム",hira:"れにうむ",row:6,col:7,type:["transition","metal"]},
+{n:76,s:"Os",name:"オスミウム",hira:"おすみうむ",row:6,col:8,type:["transition","metal"]},
+{n:77,s:"Ir",name:"イリジウム",hira:"いりじうむ",row:6,col:9,type:["transition","metal"]},
+{n:78,s:"Pt",name:"白金",hira:"はっきん",row:6,col:10,type:["transition","metal"]},
+{n:79,s:"Au",name:"金",hira:"きん",row:6,col:11,type:["transition","metal"]},
+{n:80,s:"Hg",name:"水銀",hira:"すいぎん",row:6,col:12,type:["transition","metal"]},
+{n:81,s:"Tl",name:"タリウム",hira:"たりうむ",row:6,col:13,type:["post","metal"]},
+{n:82,s:"Pb",name:"鉛",hira:"なまり",row:6,col:14,type:["post","metal"]},
+{n:83,s:"Bi",name:"ビスマス",hira:"びすます",row:6,col:15,type:["metal","semiconductor"]},
+{n:84,s:"Po",name:"ポロニウム",hira:"ぽろにうむ",row:6,col:16,type:["metal","semiconductor"]},
+{n:85,s:"At",name:"アスタチン",hira:"あすたちん",row:6,col:17,type:["halogen","nonmetal","semiconductor"]},
+{n:86,s:"Rn",name:"ラドン",hira:"らどん",row:6,col:18,type:["noble","nonmetal"]},
 
 
-{n:87,s:"Fr",name:"フランシウム",row:7,col:1,type:["alkali","metal"]},
-{n:88,s:"Ra",name:"ラジウム",row:7,col:2,type:["alkaline","metal"]},
+{n:87,s:"Fr",name:"フランシウム",hira:"ふらんしうむ",row:7,col:1,type:["alkali","metal"]},
+{n:88,s:"Ra",name:"ラジウム",hira:"らじうむ",row:7,col:2,type:["alkaline","metal"]},
 {n:"89–71",s:"Ac*",name:"アクチニウム",row:7,col:3,type:["transition","metal"]},
-{n:104,s:"Rf",name:"ラザホージウム",row:7,col:4,type:["acti"]},
-{n:105,s:"Db",name:"ドブニウム",row:7,col:5,type:["acti"]},
-{n:106,s:"Sg",name:"シーボーギウム",row:7,col:6,type:["acti"]},
-{n:107,s:"Bh",name:"ボーリウム",row:7,col:7,type:["acti"]},
-{n:108,s:"Hs",name:"ハッシウム",row:7,col:8,type:["acti"]},
-{n:109,s:"Mt",name:"マイトネリウム",row:7,col:9,type:["acti"]},
-{n:110,s:"Ds",name:"ダームスタチウム",row:7,col:10,type:["acti"]},
-{n:111,s:"Rg",name:"レントゲニウム",row:7,col:11,type:["acti"]},
-{n:112,s:"Cn",name:"コペルニシウム",row:7,col:12,type:["acti"]},
-{n:113,s:"Nh",name:"ニホニウム",row:7,col:13,type:["acti"]},
-{n:114,s:"Fl",name:"フレロビウム",row:7,col:14,type:["acti"]},
-{n:115,s:"Mc",name:"モスコビウム",row:7,col:15,type:["acti"]},
-{n:116,s:"Lv",name:"リバモリウム",row:7,col:16,type:["acti"]},
-{n:117,s:"Ts",name:"テネシン",row:7,col:17,type:["acti"]},
-{n:118,s:"Og",name:"オネガソン",row:7,col:18,type:["acti"]},
+{n:104,s:"Rf",name:"ラザホージウム",hira:"らざほーじうむ",row:7,col:4,type:["acti"]},
+{n:105,s:"Db",name:"ドブニウム",hira:"どぶにうむ",row:7,col:5,type:["acti"]},
+{n:106,s:"Sg",name:"シーボーギウム",hira:"しーぼーぎうむ",row:7,col:6,type:["acti"]},
+{n:107,s:"Bh",name:"ボーリウム",hira:"ぼーりうむ",row:7,col:7,type:["acti"]},
+{n:108,s:"Hs",name:"ハッシウム",hira:"はっしうむ",row:7,col:8,type:["acti"]},
+{n:109,s:"Mt",name:"マイトネリウム",hira:"まいとねりうむ",row:7,col:9,type:["acti"]},
+{n:110,s:"Ds",name:"ダームスタチウム",hira:"だーむすたちうむ",row:7,col:10,type:["acti"]},
+{n:111,s:"Rg",name:"レントゲニウム",hira:"れんとげにうむ",row:7,col:11,type:["acti"]},
+{n:112,s:"Cn",name:"コペルニシウム",hira:"こぺるにしうむ",row:7,col:12,type:["acti"]},
+{n:113,s:"Nh",name:"ニホニウム",hira:"にほにうむ",row:7,col:13,type:["acti"]},
+{n:114,s:"Fl",name:"フレロビウム",hira:"ふれろびうむ",row:7,col:14,type:["acti"]},
+{n:115,s:"Mc",name:"モスコビウム",hira:"もすこびうむ",row:7,col:15,type:["acti"]},
+{n:116,s:"Lv",name:"リバモリウム",hira:"りばもりうむ",row:7,col:16,type:["acti"]},
+{n:117,s:"Ts",name:"テネシン",hira:"てねしん",row:7,col:17,type:["acti"]},
+{n:118,s:"Og",name:"オネガソン",hira:"おがねそん",row:7,col:18,type:["acti"]},
 
 
 /* ランタノイド */
-{n:57,s:"La",name:"ランタン",row:8,col:3,type:["lanthanoid","metal","transition"]},
-{n:58,s:"Ce",name:"セリウム",row:8,col:4,type:["lanthanoid","metal","transition"]},
-{n:59,s:"Pr",name:"プラセオジム",row:8,col:5,type:["lanthanoid","metal","transition"]},
-{n:60,s:"Nd",name:"ネオジム",row:8,col:6,type:["lanthanoid","metal","transition"]},
-{n:61,s:"Pm",name:"プロメチウム",row:8,col:7,type:["lanthanoid","metal","transition"]},
-{n:62,s:"Sm",name:"サマリウム",row:8,col:8,type:["lanthanoid","metal","transition"]},
-{n:63,s:"Eu",name:"ユウロピウム",row:8,col:9,type:["lanthanoid","metal","transition"]},
-{n:64,s:"Gd",name:"ガドリニウム",row:8,col:10,type:["lanthanoid","metal","transition"]},
-{n:65,s:"Tb",name:"テルビウム",row:8,col:11,type:["lanthanoid","metal","transition"]},
-{n:66,s:"Dy",name:"ジスプロシウム",row:8,col:12,type:["lanthanoid","metal","transition"]},
-{n:67,s:"Ho",name:"ホルミウム",row:8,col:13,type:["lanthanoid","metal","transition"]},
-{n:68,s:"Er",name:"エルビウム",row:8,col:14,type:["lanthanoid","metal","transition"]},
-{n:69,s:"Tm",name:"ツリウム",row:8,col:15,type:["lanthanoid","metal","transition"]},
-{n:70,s:"Yb",name:"イッテルビウム",row:8,col:16,type:["lanthanoid","metal","transition"]},
-{n:71,s:"Lu",name:"ルテチウム",row:8,col:17,type:["lanthanoid","metal","transition"]},
+{n:57,s:"La",name:"ランタン",hira:"らんたん",row:8,col:3,type:["lanthanoid","metal","transition"]},
+{n:58,s:"Ce",name:"セリウム",hira:"せりうむ",row:8,col:4,type:["lanthanoid","metal","transition"]},
+{n:59,s:"Pr",name:"プラセオジム",hira:"ぷらせおじむ",row:8,col:5,type:["lanthanoid","metal","transition"]},
+{n:60,s:"Nd",name:"ネオジム",hira:"ねおじむ",row:8,col:6,type:["lanthanoid","metal","transition"]},
+{n:61,s:"Pm",name:"プロメチウム",hira:"ぷろめちうむ",row:8,col:7,type:["lanthanoid","metal","transition"]},
+{n:62,s:"Sm",name:"サマリウム",hira:"さまりうむ",row:8,col:8,type:["lanthanoid","metal","transition"]},
+{n:63,s:"Eu",name:"ユウロピウム",hira:"ゆうろぴうむ",row:8,col:9,type:["lanthanoid","metal","transition"]},
+{n:64,s:"Gd",name:"ガドリニウム",hira:"かどりにうむ",row:8,col:10,type:["lanthanoid","metal","transition"]},
+{n:65,s:"Tb",name:"テルビウム",hira:"てれびうむ",row:8,col:11,type:["lanthanoid","metal","transition"]},
+{n:66,s:"Dy",name:"ジスプロシウム",hira:"じすぷろしうむ",row:8,col:12,type:["lanthanoid","metal","transition"]},
+{n:67,s:"Ho",name:"ホルミウム",hira:"ほるみうむ",row:8,col:13,type:["lanthanoid","metal","transition"]},
+{n:68,s:"Er",name:"エルビウム",hira:"えるびうむ",row:8,col:14,type:["lanthanoid","metal","transition"]},
+{n:69,s:"Tm",name:"ツリウム",hira:"つりうむ",row:8,col:15,type:["lanthanoid","metal","transition"]},
+{n:70,s:"Yb",name:"イッテルビウム",hira:"いってるびうむ",row:8,col:16,type:["lanthanoid","metal","transition"]},
+{n:71,s:"Lu",name:"ルテチウム",hira:"るてちうむ",row:8,col:17,type:["lanthanoid","metal","transition"]},
 
 /* アクチノイド */
-{n:89,s:"Ac",name:"アクチニウム",row:9,col:3,type:["actinoid","metal","transition"]},
-{n:90,s:"Th",name:"トリウム",row:9,col:4,type:["actinoid","metal","transition"]},
-{n:91,s:"Pa",name:"プロトアクチニウム",row:9,col:5,type:["actinoid","metal","transition"]},
-{n:92,s:"U",name:"ウラン",row:9,col:6,type:["actinoid","metal","transition"]},
-{n:93,s:"Np",name:"ネプツニウム",row:9,col:7,type:["actinoid","metal","transition"]},
-{n:94,s:"Pu",name:"プルトニウム",row:9,col:8,type:["actinoid","metal","transition"]},
-{n:95,s:"Am",name:"アメリシウム",row:9,col:9,type:["actinoid","metal","transition"]},
-{n:96,s:"Cm",name:"キュリウム",row:9,col:10,type:["actinoid","metal","transition"]},
-{n:97,s:"Bk",name:"バークリウム",row:9,col:11,type:["actinoid","metal","transition"]},
-{n:98,s:"Cf",name:"カリホルニウム",row:9,col:12,type:["actinoid","metal","transition"]},
-{n:99,s:"Es",name:"アインスタイニウム",row:9,col:13,type:["actinoid","metal","transition"]},
-{n:100,s:"Fm",name:"フェルミウム",row:9,col:14,type:["actinoid","metal","transition"]},
-{n:101,s:"Md",name:"メンデレビウム",row:9,col:15,type:["actinoid","metal","transition"]},
-{n:102,s:"No",name:"ノーベリウム",row:9,col:16,type:["actinoid","metal","transition"]},
-{n:103,s:"Lr",name:"ローレンシウム",row:9,col:17,type:["actinoid","metal","transition"]},
+{n:89,s:"Ac",name:"アクチニウム",hira:"あくちうむ",row:9,col:3,type:["actinoid","metal","transition"]},
+{n:90,s:"Th",name:"トリウム",hira:"とりうむ",row:9,col:4,type:["actinoid","metal","transition"]},
+{n:91,s:"Pa",name:"プロトアクチニウム",hira:"ぷろとあくちにうむ",row:9,col:5,type:["actinoid","metal","transition"]},
+{n:92,s:"U",name:"ウラン",hira:"うらん",row:9,col:6,type:["actinoid","metal","transition"]},
+{n:93,s:"Np",name:"ネプツニウム",hira:"ねぷつにうむ",row:9,col:7,type:["actinoid","metal","transition"]},
+{n:94,s:"Pu",name:"プルトニウム",hira:"ぷろとにうむ",row:9,col:8,type:["actinoid","metal","transition"]},
+{n:95,s:"Am",name:"アメリシウム",hira:"あめりしうむ",row:9,col:9,type:["actinoid","metal","transition"]},
+{n:96,s:"Cm",name:"キュリウム",hira:"きゅりうむ",row:9,col:10,type:["actinoid","metal","transition"]},
+{n:97,s:"Bk",name:"バークリウム",hira:"ばーくりうむ",row:9,col:11,type:["actinoid","metal","transition"]},
+{n:98,s:"Cf",name:"カリホルニウム",hira:"かるほにうむ",row:9,col:12,type:["actinoid","metal","transition"]},
+{n:99,s:"Es",name:"アインスタイニウム",hira:"あいんすたいにうむ",row:9,col:13,type:["actinoid","metal","transition"]},
+{n:100,s:"Fm",name:"フェルミウム",hira:"ふぇるにうむ",row:9,col:14,type:["actinoid","metal","transition"]},
+{n:101,s:"Md",name:"メンデレビウム",hira:"めんでれびうむ",row:9,col:15,type:["actinoid","metal","transition"]},
+{n:102,s:"No",name:"ノーベリウム",hira:"のーべりうむ",row:9,col:16,type:["actinoid","metal","transition"]},
+{n:103,s:"Lr",name:"ローレンシウム",hira:"ろーれんしうむ",row:9,col:17,type:["actinoid","metal","transition"]},
 
 ];
 
@@ -271,6 +268,8 @@ elements.forEach(el => {
   `;
 
   table.appendChild(div);
+
+  div.dataset.num=el.n;
 });
 
 // フィルター
@@ -288,41 +287,61 @@ function filterElements(type) {
   });
 }
 
-div.dateset.num=e1.n;
 
-
-function quiz() {
+function startTypingQuiz() {
   document.querySelectorAll(".element").forEach(card=>{
-    card.classList.remove("correct","wrong");
-    card.classList.add("flipped");
+    card.classList.remove("highlight");
   });
 
-  flipTarget = elements[Math.floor(Math.random() * elements.length)];
-  flipMode = true;
+  typingTarget = elements[Math.floor(Math.random() * elements.length)];
+  
+  document.querySelectorAll(".element").forEach(card=>{
+    if (card.dataset.num == typingTarget.n) {
+      card.classList.add("highlight");
+    }
+  });
+
+  document.getElementById("Question").textContent =
+    "強調された位置の元素名を入力してください";
+
+  document.getElementById("Answer").value = "";
+  document.getElementById("result").textContent = "";
 }
 
-div.addEventListener("click",() => {
-  if (!flipMode) return;
+function checkTypingAnswer() {
+  if (!typingTarget) return;
 
-  div.classList.remove("flipped");
-  if (el.n === flipTarget.n) {
-    div.classList.add("correct");
-    document.getElementById("flipResult").textContent =
-      `正解！ ${el.name}`;
+  const user = toHiragana(
+    document.getElementById("typingAnswer").value.trim()
+  );
+
+  const correctKana = typingTarget.kana;
+  const correctName = typingTarget.name;
+
+  if (user === correctKana || user === toHiragana(correctName)) {
+    document.getElementById("typingResult").textContent = "正解";
   } else {
-    div.classList.add("wrong");
-    document.getElementById("flipResult").textContent =
-      `不正解… 正解は ${flipTarget.name}`;
+    document.getElementById("typingResult").textContent =
+      `不正解… 正しくは ${correctName}`;
   }
+}
 
-  flipMode=false;
-});
-
+function toHiragana(str) {
+  return str.replace(/[ァ-ン]/g, s =>
+    String.fromCharCode(s.charCodeAt(0) - 0x60)
+  );
+}
   
 </script>
+
   
-<button onclick="quiz()">クイズ</button>
-<p id="flipResult"></p>
+<button onclick="quiz()">QUIZ START</button>
+<p id="Question"></p>
+
+<input type="text" id="Answer" placeholder="入力">
+
+<button onclick="check()">ANSWER</button>
+<p id="result"></p>
 
 </body>
 </html>
