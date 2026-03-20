@@ -311,9 +311,6 @@ function quiz() {
 
 function check() {
   if (!typingTarget) return;
-document.getElementById("Answer").addEventListener("keydown", e=>{
-  if (e.key === "Enter") {
-    Answer();
     
   const user = toHiragana(
     document.getElementById("Answer").value.trim()
@@ -337,6 +334,10 @@ document.getElementById("Answer").addEventListener("keydown", e=>{
 function toHiragana(str) {
   return str.replace(/[ァ-ン]/g, s =>
     String.fromCharCode(s.charCodeAt(0) - 0x60)
+
+document.getElementById("Answer").addEventListener("keydown", e=>{
+  if (e.key === "Enter") {
+    Answer();
   );
 }
   
