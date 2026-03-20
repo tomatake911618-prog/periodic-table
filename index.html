@@ -5,6 +5,13 @@
 <title>周期表</title>
 
 <style>
+document.getElementById("Answer").addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    check();
+  }
+});
+
+
 body {
   font-family: sans-serif;
   text-align: center;
@@ -334,14 +341,7 @@ function toHiragana(str) {
     String.fromCharCode(s.charCodeAt(0) - 0x60)
   );
 }
-
-document.getElementById("Answer").addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    check();
-  }
-});
-
-  
+ 
 </script>
 
   
