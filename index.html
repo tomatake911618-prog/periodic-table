@@ -312,19 +312,25 @@ function checkTypingAnswer() {
   if (!typingTarget) return;
 
   const user = toHiragana(
-    document.getElementById("typingAnswer").value.trim()
+    document.getElementById("Answer").value.trim()
   );
 
   const correctKana = typingTarget.kana;
   const correctName = typingTarget.name;
 
   if (user === correctKana || user === toHiragana(correctName)) {
-    document.getElementById("typingResult").textContent = "正解";
+    document.getElementById("Result").textContent = "正解";
   } else {
-    document.getElementById("typingResult").textContent =
+    document.getElementById("Result").textContent =
       `不正解… 正しくは ${correctName}`;
   }
 }
+
+document.getElementById("Answer").addEventListener("keydown", e=>{
+  if (e.key === "Enter") {
+    checkTypingAnswer();
+  }
+});
 
 function toHiragana(str) {
   return str.replace(/[ァ-ン]/g, s =>
