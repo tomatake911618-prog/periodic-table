@@ -87,7 +87,7 @@ button {
 /* スマホ */
 @media (max-width:600px) {
   .table {
-    grid-template-columns: repeat(18, 50px);
+    grid-template-columns: repeat(18, 60px);
   }
   .name {
     display: none;
@@ -116,6 +116,9 @@ button {
 <div class="table" id="table"></div>
 
 <script>
+let flipMode = false;
+let flipTarget = null;
+
 const elements = [
 {n:1,s:"H",name:"水素",row:1,col:1,type:["nonmetal"]},
 {n:2,s:"He",name:"ヘリウム",row:1,col:18,type:["noble","nonmetal"]},
@@ -252,7 +255,6 @@ const elements = [
 
 ];
 
-<button onclick="quiz()">クイズ</button>
 // 描画
 const table = document.getElementById("table");
 
@@ -318,7 +320,9 @@ div.addEventListener("click",() => {
 
   
 </script>
+  
+<button onclick="quiz()">クイズ</button>
+<p id="flipResult"></p>
 
-<div class="quiz">
 </body>
 </html>
