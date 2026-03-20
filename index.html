@@ -59,6 +59,19 @@ button {
   font-size: 13px;
 }
 
+.flipped {
+  background: white !important;
+  color: transparent;
+}
+
+.correct {
+  background: lime;
+}
+
+.wrong {
+  background: red;
+}
+  
 /* 色付け */
 .active.alkali { background: #e80909; color: black; }
 .active.alkaline { background: #ffcc66; color: black; }
@@ -271,7 +284,41 @@ function filterElements(type) {
     }
   });
 }
+
+div.dateset.num=e1.n;
+
+
+function quiz() {
+  document.querySelectorAll(".element").forEach(card=>{
+    card.classList.remove("correct","wrong");
+    card.classList.add("flipped");
+  });
+
+  flipTarget = elements[Math.floor(Math.random() * elements.length)];
+  flipMode = true;
+}
+
+div.addEventListener("click",() => {
+  if (!flipMode) return;
+
+  div.classList.remove("flipped");
+  if (el.n === flipTarget.n) {
+    div.classList.add("correct");
+    document.getElementById("flipResult").textContent =
+      `正解！ ${el.name}`;
+  } else {
+    div.classList.add("wrong");
+    document.getElementById("flipResult").textContent =
+      `不正解… 正解は ${flipTarget.name}`;
+  }
+
+  flipMode=false;
+});
+
+  
 </script>
 
+.
+<div class="quiz">
 </body>
 </html>
