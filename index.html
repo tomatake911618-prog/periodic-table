@@ -96,7 +96,7 @@ button {
 
 <body>
 
-<audio id="correctSound" src="C:\Users\shiki\Downloads\a.mp3"></audio>
+<audio id="correctSound" src="a.mp3"></audio>
 
 <h2>周期表</h2>
 
@@ -295,7 +295,6 @@ let typingTarget=null;
 function quiz() {
   document.querySelectorAll(".element").forEach(card=>{
     card.classList.remove("hide");
-  document.querySelectorAll(".element").forEach(card=>{
     card.classList.remove("highlight");
   });
 
@@ -304,12 +303,13 @@ function quiz() {
   document.querySelectorAll(".element").forEach(card=>{
     if (card.dataset.num == typingTarget.n) {
       card.classList.remove("hide");
+    } else {
       card.classList.add("highlight");
     }
   });
 
   document.getElementById("Question").textContent =
-    "強調された位置の元素名を入力してください";
+    "元素名を入力してください";
 
   document.getElementById("Answer").value = "";
   document.getElementById("result").textContent = "";
@@ -339,11 +339,13 @@ function toHiragana(str) {
   );
 }
 
-document.getElementById("Answer").addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    check();
-  }
-});
+window.onload=()=> {
+  document.getElementById("Answer").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      check();
+    }
+  });
+};
 
 </script>
 
