@@ -306,7 +306,6 @@ function quiz() {
   document.querySelectorAll(".element").forEach(card=>{
     if (card.dataset.num == typingTarget.n) {
       card.classList.remove("hide");
-    } else {
       card.classList.add("highlight");
     }
   });
