@@ -297,6 +297,8 @@ let typingTarget=null;
 //クイズ
 function quiz() {
   document.querySelectorAll(".element").forEach(card=>{
+    card.classList.remove("active")
+  document.querySelectorAll(".element").forEach(card=>{
     card.classList.add("hide");
     card.classList.remove("highlight");
   });
@@ -311,7 +313,7 @@ function quiz() {
   });
 
   document.getElementById("Question").textContent =
-    "元素名を入力してください";
+    "入力";
 
   document.getElementById("Answer").value = "";
   document.getElementById("result").textContent = "";
@@ -372,7 +374,6 @@ function end() {
 <input type="text" id="Answer" placeholder="入力">
 
 <button onclick="check()">ANSWER</button>
-<p id="result"></p>
-
+<p id="result"></p>p>
 </body>
 </html>
