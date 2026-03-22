@@ -304,10 +304,10 @@ function quiz() {
     card.classList.remove("highlight");
   });
 
-  // 出題する元素をランダム選択
+  // 元素
   typingTarget = elements[Math.floor(Math.random() * elements.length)];
 
-  // その元素だけ光らせる
+  // 光る
   document.querySelectorAll(".element").forEach(card=>{
     if (card.dataset.num == typingTarget.n) {
       card.classList.remove("hide");
@@ -376,5 +376,7 @@ function end() {
 
 <button onclick="check()">ANSWER</button>
 <p id="result"></p>
+
+<h3>更新情報</h3>
 </body>
 </html>
