@@ -296,15 +296,18 @@ function filterElements(type) {
 let typingTarget=null;
 //クイズ
 function quiz() {
+
+  // すべて白に戻す
   document.querySelectorAll(".element").forEach(card=>{
-    card.classList.remove("active")
-  document.querySelectorAll(".element").forEach(card=>{
+    card.classList.remove("active");
     card.classList.add("hide");
     card.classList.remove("highlight");
   });
 
+  // 出題する元素をランダム選択
   typingTarget = elements[Math.floor(Math.random() * elements.length)];
-  
+
+  // その元素だけ光らせる
   document.querySelectorAll(".element").forEach(card=>{
     if (card.dataset.num == typingTarget.n) {
       card.classList.remove("hide");
@@ -312,13 +315,11 @@ function quiz() {
     }
   });
 
-  document.getElementById("Question").textContent =
-    "入力";
+  document.getElementById("Question").textContent = "この元素は？";
 
   document.getElementById("Answer").value = "";
   document.getElementById("result").textContent = "";
 }
-
 function check() {
   if (!typingTarget) return;
     
