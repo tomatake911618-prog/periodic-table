@@ -119,6 +119,7 @@ button {
 <div class="table" id="table"></div>
 
 <script>
+let difficulty="easy";
 let flipMode = false;
 let flipTarget = null;
 
@@ -302,7 +303,6 @@ function quiz() {
     card.classList.add("hide");
     card.classList.remove("highlight");
   });
-let difficulty="easy";
   let pool = elements.filter(el => typeof el.n === "number");
 
   if (difficulty === "easy") {
