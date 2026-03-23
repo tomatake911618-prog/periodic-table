@@ -304,14 +304,14 @@ function quiz() {
     card.classList.remove("highlight");
   });
 
-  let pool=elemnts;
-  if("difficulty="easy") {
+  let dificulty="easy";
+  if("difficulty==="easy") {
     pool= elements.filter(el => typeof el.n==="number" && el.n <=20);
   }
-  else if("difficulty="normal") {
+  else if("difficulty==="normal") {
     pool=elements.filter(el =>typeof el.n==="number"&&el.n <=56);
   }
-  else if("dificulty="hard") {
+  else if("dificulty==="hard") {
     pool=elemnts.filter(el=>typeof el.n==="number"&&el.n<=118);
   }
   
@@ -332,7 +332,7 @@ function quiz() {
   document.getElementById("result").textContent = "";
 }
 
-function level() {
+function setDifficulty(level) {
   difficulty=level;
 document.getElementById("difficulty").style.display=none;
   quiz()
@@ -384,7 +384,7 @@ function end() {
   document.getElementById("Answer").value = "";
 }
 
-function show_difficulty() {
+function showdifficulty() {
   document.getElementById("difficulty").style.display="block";
 }
 
@@ -392,14 +392,15 @@ function show_difficulty() {
 </script>
 
   
-<button onclick="difficulty()">QUIZ START</button>　
+<button onclick="showdifficulty()">QUIZ START</button>　
 
   <div id="dificulty" style="display:none;">
-  <p>難易度</p>
-  <button onclick="easy">Easy(1-20)</button>
-  <button onclick="normal">Normal(1-56)</button>
-  <button onclick="hard">Hard(1-118)</button>
-
+    <p>難易度</p>
+    <button onclick="setDifficulty('easy')">Easy(1-20)</button>
+    <button onclick="seatDifficulty('normal')">Normal(1-56)</button>
+    <button onclick="setDifficulty('hard')">Hard(1-118)</button>
+  </div>
+  
   <button onclikc="end()">QUIZ END</button>
   
 <input type="text" id="Answer" placeholder="入力">
