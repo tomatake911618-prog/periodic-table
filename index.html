@@ -294,7 +294,7 @@ function filterElements(type) {
 }
 
 let typingTarget=null;
-//クイズ
+//クイズ                
 function quiz() {
 
   // すべて白に戻す
@@ -304,7 +304,18 @@ function quiz() {
     card.classList.remove("highlight");
   });
 
-  // 元素
+  let pool=elemnts;
+  if("difficulty="easy") {
+    pool= elements.filter(el => typeof el.n==="number" && el.n <=20);
+  }
+  else if("difficulty="normal") {
+    pool=elements.filter(el =>typeof el.n==="number"&&el.n <=56);
+  }
+  else if("dificulty="hard") {
+    pool=elemnts.filter(el=>typeof el.n==="number"&&el.n<=118);
+  }
+  
+  //元素選択
   typingTarget = elements[Math.floor(Math.random() * elements.length)];
 
   // 光る
@@ -320,6 +331,13 @@ function quiz() {
   document.getElementById("Answer").value = "";
   document.getElementById("result").textContent = "";
 }
+
+function level() {
+  difficulty=level;
+document.getElementById("difficulty").style.display=none;
+  quiz()
+}
+
 function check() {
   if (!typingTarget) return;
     
@@ -365,18 +383,31 @@ function end() {
   document.getElementById("result").textContent = "";
   document.getElementById("Answer").value = "";
 }
+
+function show_difficulty() {
+  document.getElementById("difficulty").style.display="block";
+}
+
   
 </script>
 
   
-<button onclick="quiz()">QUIZ START</button>　<button onclick="end()">QUIZ END</button>
-<p id="Question"></p>
+<button onclick="difficulty()">QUIZ START</button>　
 
+  <div id="dificulty" style="display:none;">
+  <p>難易度</p>
+  <button onclick="easy">Easy(1-20)</button>
+  <button onclick="normal">Normal(1-56)</button>
+  <button onclick="hard">Hard(1-118)</button>
+
+  <button onclikc="end()">QUIZ END</button>
+  
 <input type="text" id="Answer" placeholder="入力">
 
 <button onclick="check()">ANSWER</button>
 <p id="result"></p>
 
+<>
 <h3>更新情報</h3>
 </body>
 </html>
