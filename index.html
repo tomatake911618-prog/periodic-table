@@ -297,37 +297,39 @@ let typingTarget=null;
 //クイズ                
 function quiz() {
 
-  // すべて白に戻す
   document.querySelectorAll(".element").forEach(card=>{
     card.classList.remove("active");
     card.classList.add("hide");
     card.classList.remove("highlight");
   });
 
-  let dificulty="easy";
-  if("difficulty==="easy") {
-    pool= elements.filter(el => typeof el.n==="number" && el.n <=20);
-  }
-  else if("difficulty==="normal") {
-    pool=elements.filter(el =>typeof el.n==="number"&&el.n <=56);
-  }
-  else if("dificulty==="hard") {
-    pool=elemnts.filter(el=>typeof el.n==="number"&&el.n<=118);
-  }
-  
-  //元素選択
-  typingTarget = elements[Math.floor(Math.random() * elements.length)];
+  let pool = elements.filter(el => typeof el.n === "number");
 
-  // 光る
+  if (difficulty === "easy") {
+    pool = pool.filter(el => el.n <= 20);
+  }
+  else if (difficulty === "normal") {
+    pool = pool.filter(el => el.n <= 56);
+  }
+  else if (difficulty === "hard") {
+    pool = pool.filter(el => el.n <= 118);
+  }
+
+  if (pool.length === 0) {
+    alert("この難易度に元素がありません");
+    return;
+  }
+
+  typingTarget = pool[Math.floor(Math.random() * pool.length)];
+
   document.querySelectorAll(".element").forEach(card=>{
-    if (card.dataset.num == typingTarget.n) {
+    if (Number(card.dataset.num) === typingTarget.n) {
       card.classList.remove("hide");
       card.classList.add("highlight");
     }
   });
 
   document.getElementById("Question").textContent = "この元素は？";
-
   document.getElementById("Answer").value = "";
   document.getElementById("result").textContent = "";
 }
