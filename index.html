@@ -205,7 +205,7 @@ const elements = [
 
 {n:87,s:"Fr",name:"フランシウム",hira:"ふらんしうむ",row:7,col:1,type:["alkali","metal","radioactive"]},
 {n:88,s:"Ra",name:"ラジウム",hira:"らじうむ",row:7,col:2,type:["alkaline","metal","radioactive"]},
-{n:"89–71",s:"Ac*",name:"アクチノイド",row:7,col:3,type:["transition","metal"]},
+{n:"89-103",s:"Ac*",name:"アクチノイド",row:7,col:3,type:["transition","metal"]},
 {n:104,s:"Rf",name:"ラザホージウム",hira:"らざほーじうむ",row:7,col:4,type:["acti","radioactive"]},
 {n:105,s:"Db",name:"ドブニウム",hira:"どぶにうむ",row:7,col:5,type:["acti","radioactive"]},
 {n:106,s:"Sg",name:"シーボーギウム",hira:"しーぼーぎうむ",row:7,col:6,type:["acti","radioactive"]},
@@ -276,7 +276,7 @@ elements.forEach(el => {
 
   table.appendChild(div);
 
-  div.dataset.num=el.n;
+  div.dataset.num = String(el.n);
 });
 
 // フィルター
@@ -336,7 +336,7 @@ function quiz() {
 
 function setDifficulty(level) {
   difficulty=level;
-document.getElementById("difficulty").style.display=none;
+document.getElementById("difficulty").style.display=”none”;
   quiz()
 }
 
@@ -403,7 +403,7 @@ function showDifficulty() {
   </div>
   
   <button onclick="end()">QUIZ END</button>
-  <p id="Queastion"></p>
+  <p id="Question"></p>
 <input type="text" id="Answer" placeholder="入力">
 
 <button onclick="check()">ANSWER</button>
