@@ -353,7 +353,11 @@ function check() {
   if (user === correctHira || user === toHiragana(correctName)) {
     document.getElementById("result").textContent = "正解";
     document.getElementById("correctSound").play();
-  } else {
+
+    setTimeout(()=> {
+      quiz();
+    },1000);
+  }
     document.getElementById("result").textContent =`不正解… 正しくは ${correctName}`;
   }
 }
