@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>周期表 MADE BY QUONTAM ENTANGLEMENT</title>
+<title>周期表</title>
 
 <style>
 
@@ -99,9 +99,9 @@ button {
 
 <body>
 
-<audio id="correctSound" src="a.mp3"></audio>
+<audio id="correctSound" src="クイズ正解1.mp3"></audio>
 
-<h2>周期表</h2>
+<h2>周期表  MADE BY QUONTUM ENTANGLEMENT</h2>
 
 <div class="buttons">
   <button onclick="filterElements('all')">全部</button>
@@ -124,7 +124,7 @@ let flipMode = false;
 let flipTarget = null;
 
 const elements = [
-{n:1,s:"H",name:"水素",hira:"すいそ",row:1,col:1,type:["nonmetal"]},
+{n:1,s:"H",name:"水素",hira:"すいそ",row:1,col:1,type:["nonmetal"],},
 {n:2,s:"He",name:"ヘリウム",hira:"へりうむ",row:1,col:18,type:["noble","nonmetal"]},
 
 {n:3,s:"Li",name:"リチウム",hira:"りちうむ",row:2,col:1,type:["alkali","metal"]},
@@ -274,6 +274,10 @@ elements.forEach(el => {
     <div class="name">${el.name}</div>
   `;
 
+  deiv.addEventListener("click",()=> {
+    document.
+    )
+
   table.appendChild(div);
 
   div.dataset.num = String(el.n);
@@ -415,6 +419,6 @@ function showDifficulty() {
 
 <h3>更新情報</h3>
 <h4>難易度設定を作りました！</h4>
-<h5>採用が出るようにしました！</h5>
+<h5></h5>
 </body>
 </html>
