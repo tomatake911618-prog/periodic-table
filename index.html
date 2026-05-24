@@ -313,7 +313,7 @@ function quiz() {
     pool = pool.filter(el => el.n <= 20);
   }
   else if (difficulty === "normal") {
-    pool = pool.filter(el => el.n <= 56);
+    pool = pool.filter(el => el.n <= 36);
   }
   else if (difficulty === "hard") {
     pool = pool.filter(el => el.n <= 118);
@@ -406,7 +406,7 @@ function showDifficulty() {
   <div id="difficulty" style="display:none;">
     <p>難易度</p>
     <button onclick="setDifficulty('easy')">Easy(1-20)</button>
-    <button onclick="setDifficulty('normal')">Normal(1-56)</button>
+    <button onclick="setDifficulty('normal')">Normal(1-36)</button>
     <button onclick="setDifficulty('hard')">Hard(1-118)</button>
   </div>
   
