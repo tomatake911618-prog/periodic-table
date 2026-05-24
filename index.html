@@ -316,9 +316,12 @@ function quiz() {
     pool = pool.filter(el => el.n <= 36);
   }
   else if (difficulty === "hard") {
-    pool = pool.filter(el => el.n <= 118);
+    pool = pool.filter(el => el.n <= 86);
   }
-
+  else if (difficulty === "Incomprehensibilities") {
+    pool = pool.filter(el => el.n <=118);
+  }
+  
   if (pool.length === 0) {
     alert("この難易度に元素がありません");
     return;
@@ -407,7 +410,8 @@ function showDifficulty() {
     <p>難易度</p>
     <button onclick="setDifficulty('easy')">Easy(1-20)</button>
     <button onclick="setDifficulty('normal')">Normal(1-36)</button>
-    <button onclick="setDifficulty('hard')">Hard(1-118)</button>
+    <button onclick="setDifficulty('hard')">Hard(1-86)</button>
+    <button onclick="setDifficulty('Incomprehensibilities')">Incomprehensibilities(1-118)</button>
   </div>
   
   <button onclick="end()">QUIZ END</button>
@@ -419,5 +423,7 @@ function showDifficulty() {
 
 <h3>更新情報</h3>
 <h4>難易度設定を作りました！</h4>
+<h5>今更、難易度設定がミスっていることに気づいたので、
+  難易度調整しました。</h5>
 </body>
 </html>
