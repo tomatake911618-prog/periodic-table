@@ -118,38 +118,6 @@ button {
 
 <div class="table" id="table"></div>
 
-<div id="quizWindow" style="
-background:white;
-color:black;
-width:300px;
-position:absolute;
-top:100px;
-left:50%;
-transform:translateX(-50%);
-padding:20px;
-border-radius:10px;
-text-align:center;
-cursor:move;
-">
-
-  <div style="
-  background:white;
-  color:black;
-  width:300px;
-  margin:100px auto;
-  padding:20px;
-  border-radius:10px;
-  text-align:center;
-  ">
-    <h2>元素クイズ</h2>
-    <p id="Question"></p>
-    <input type="text" id="Answer" placeholder="元素名を入力">
-    <br><br>
-    <button onclick="check()">回答</button>
-    <button onclick="end()">終了</button>
-    <p id="result"></p>
-  </div>
-</div>
 <script>
 let difficulty="easy";
 let flipMode = false;
@@ -374,12 +342,10 @@ function quiz() {
 }
 
 function setDifficulty(level) {
-  difficulty = level;
-  document.getElementById("difficulty").style.display = "none";
-  document.getElementById("quizModal").style.display = "block";
-  quiz();
+  difficulty=level;
+document.getElementById("difficulty").style.display="none";
+  quiz()
 }
-
 
 function check() {
   if (!typingTarget) return;
@@ -417,56 +383,24 @@ window.onload=()=> {
   });
 };
 
-
 function end() {
-  document.getElementById("quizModal").style.display = "none";
-
+  // 全元素を表示
   document.querySelectorAll(".element").forEach(card=>{
     card.classList.remove("hide");
     card.classList.remove("highlight");
   });
 
   typingTarget = null;
+
+  document.getElementById("Question").textContent = "クイズを終了しました";
+  document.getElementById("result").textContent = "";
+  document.getElementById("Answer").value = "";
 }
+
 function showDifficulty() {
   document.getElementById("difficulty").style.display = "block";
 }
 
-const quizWindow = document.getElementById("quizWindow");
-let dragging = false;
-let offsetX = 0;
-let offsetY = 0:
-quizWindow.addEventListener("mousedown", (e)
-dragging=
-true;
-offsetX = e.clientX-
-quizWindow.offsetLeft;
-offsetY = e.clientY - quizWindow.offsetTop;
-quizWindow.style.transform = "none"; });
-document.addEventListener("mousemove", (e) =>
-if (!dragging) return;
-quizWindow.style.left = (e.clientX offsetX) + "px";
-quizWindow.style.top = (e.clientY offsetY) + "px";
-});
-document.addEventListener("mouseup", () => { dragging = false; }); 
-
-quizWindow.addEventListener("touchstart", (e) => {
-  dragging = true;
-  const touch = e.touches[0];
-  offsetX = touch.clientX - quizWindow.offsetLeft;
-  offsetY = touch.clientY - quizWindow.offsetTop;
-  quizWindow.style.transform = "none";
-});
-document.addEventListener("touchmove", (e) => {
-  if (!dragging) return;
-  const touch = e.touches[0];
-  quizWindow.style.left = (touch.clientX - offsetX) + "px";
-  quizWindow.style.top = (touch.clientY - offsetY) + "px";
-});
-document.addEventListener("touchend", () => {
-  dragging = false;
-});
-  
 </script>
 
   
