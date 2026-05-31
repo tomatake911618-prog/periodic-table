@@ -371,11 +371,12 @@ function quiz() {
 }
 
 function setDifficulty(level) {
-  difficulty=level;
-　document.getElementById("difficulty").style.display="none";
-  document.getElementById("Model").style.display="block";
+  difficulty = level;
+  document.getElementById("difficulty").style.display = "none";
+  document.getElementById("quizModal").style.display = "block";
   quiz();
 }
+
 
 function check() {
   if (!typingTarget) return;
@@ -413,21 +414,17 @@ window.onload=()=> {
   });
 };
 
+
 function end() {
-  document.getElementById("quizModel").style.display="none";
-  // 全元素を表示
+  document.getElementById("quizModal").style.display = "none";
+
   document.querySelectorAll(".element").forEach(card=>{
     card.classList.remove("hide");
     card.classList.remove("highlight");
   });
 
   typingTarget = null;
-
-  document.getElementById("Question").textContent = "クイズを終了しました";
-  document.getElementById("result").textContent = "";
-  document.getElementById("Answer").value = "";
 }
-
 function showDifficulty() {
   document.getElementById("difficulty").style.display = "block";
 }
