@@ -118,6 +118,35 @@ button {
 
 <div class="table" id="table"></div>
 
+<div id="quizModal" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+z-index:1000;
+">
+
+  <div style="
+  background:white;
+  color:black;
+  width:300px;
+  margin:100px auto;
+  padding:20px;
+  border-radius:10px;
+  text-align:center;
+  ">
+    <h2>元素クイズ</h2>
+    <p id="Question"></p>
+    <input type="text" id="Answer" placeholder="元素名を入力">
+    <br><br>
+    <button onclick="check()">回答</button>
+    <button onclick="end()">終了</button>
+    <p id="result"></p>
+  </div>
+</div>
 <script>
 let difficulty="easy";
 let flipMode = false;
@@ -343,8 +372,9 @@ function quiz() {
 
 function setDifficulty(level) {
   difficulty=level;
-document.getElementById("difficulty").style.display="none";
-  quiz()
+　document.getElementById("difficulty").style.display="none";
+  document.getElementById("Model").style.display="block";
+  quiz();
 }
 
 function check() {
@@ -384,6 +414,7 @@ window.onload=()=> {
 };
 
 function end() {
+  document.getElementById("quizModel").style.display="none";
   // 全元素を表示
   document.querySelectorAll(".element").forEach(card=>{
     card.classList.remove("hide");
