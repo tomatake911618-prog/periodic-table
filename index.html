@@ -432,6 +432,41 @@ function showDifficulty() {
   document.getElementById("difficulty").style.display = "block";
 }
 
+const quizWindow = document.getElementById("quizWindow");
+let dragging = false;
+let offsetX = 0;
+let offsetY = 0:
+quizWindow.addEventListener("mousedown", (e)
+dragging=
+true;
+offsetX = e.clientX-
+quizWindow.offsetLeft;
+offsetY = e.clientY - quizWindow.offsetTop;
+quizWindow.style.transform = "none"; });
+document.addEventListener("mousemove", (e) =>
+if (!dragging) return;
+quizWindow.style.left = (e.clientX offsetX) + "px";
+quizWindow.style.top = (e.clientY offsetY) + "px";
+});
+document.addEventListener("mouseup", () => { dragging = false; }); 
+
+quizWindow.addEventListener("touchstart", (e) => {
+  dragging = true;
+  const touch = e.touches[0];
+  offsetX = touch.clientX - quizWindow.offsetLeft;
+  offsetY = touch.clientY - quizWindow.offsetTop;
+  quizWindow.style.transform = "none";
+});
+document.addEventListener("touchmove", (e) => {
+  if (!dragging) return;
+  const touch = e.touches[0];
+  quizWindow.style.left = (touch.clientX - offsetX) + "px";
+  quizWindow.style.top = (touch.clientY - offsetY) + "px";
+});
+document.addEventListener("touchend", () => {
+  dragging = false;
+});
+  
 </script>
 
   
